@@ -13,7 +13,7 @@ namespace GridViewBindMySql
     {
         #region MySqlConnection Connection
         MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -72,7 +72,7 @@ namespace GridViewBindMySql
                             conn.Open();
                             MySqlCommand cmd = new MySqlCommand("SELECT Course_Code, Course_Number, Course_Name, section.section_id,Section_Number, Day, S_tIME, E_Time FROM section, course, timeslot where section.Course_ID = course.Course_ID AND section.Slot_ID = timeslot.Slot_ID AND course.Course_Code = '" + CourseCode + "' AND course.Course_Number = '" + CourseNumber + "'", conn);
                             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
-                        
+
                             adp.Fill(ds);
                             adp.Dispose();
                             cmd.Dispose();
@@ -92,7 +92,7 @@ namespace GridViewBindMySql
             finally
             {
                 conn.Close();
-               
+
             }
             //btnBind.Visible = false;
         }
@@ -110,7 +110,7 @@ namespace GridViewBindMySql
                         CheckBox chkRow = (row.Cells[0].FindControl("chkCtr2") as CheckBox);
                         if (chkRow.Checked)
                         {
-                            section_Id += row.Cells[1].Text + ","; 
+                            section_Id += row.Cells[1].Text + ",";
                         }
                     }
                 }
@@ -129,6 +129,42 @@ namespace GridViewBindMySql
             }
 
             Response.Redirect("DisplayTimeTable.aspx");
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string cday_Previous = "";
+            string stime_Previous = "";
+            int a = 0;
+            foreach (GridViewRow row in GridView2.Rows)
+            {
+                CheckBox chkRow = (row.Cells[0].FindControl("chkCtr2") as CheckBox);
+                chkRow.Enabled = true;
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    string cday = row.Cells[6].Text;
+                    string stime = row.Cells[7].Text;
+
+
+                    if (chkRow.Checked)
+                    {
+                        if (cday == cday_Previous && stime == stime_Previous && a != 0)
+                        {
+
+                            chkRow.Checked = false;
+                            chkRow.Enabled = false;
+
+
+                        }
+                        cday_Previous = row.Cells[6].Text;
+                        stime_Previous = row.Cells[7].Text;
+                        a++;
+                    }
+
+
+                }
+
+            }
         }
     }
 }

@@ -23,8 +23,8 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField DataField="Course_Code" HeaderText="Course_ID" ItemStyle-Width="90" />
-            <asp:BoundField DataField="Course_Number" HeaderText="Course_Code" ItemStyle-Width="120" />
-            <asp:BoundField DataField="Course_Name" HeaderText="Course_Name" ItemStyle-Width="90" />
+            <asp:BoundField DataField="Course_Number" HeaderText="Course_Code" ItemStyle-Width="200" />
+            <asp:BoundField DataField="Course_Name" HeaderText="Course_Name" ItemStyle-Width="140" />
 
         </Columns>
     </asp:GridView>
@@ -53,9 +53,10 @@
         </Columns>
     </asp:GridView>
     <br />
-    <asp:Button ID="btnBind" runat="server" Text="Show selected courses" OnClick="btnBind_Click" />
-             <asp:Button ID="btnBind0" runat="server"  Text="Display TimeTable" OnClick="btnBind0_Click" />
+    <asp:Button ID="btnBind" runat="server" Text="Show Sections"  OnClick="btnBind_Click" />
+                <asp:Button ID="Button1" runat="server" Text="Validate Time Conflict" OnClick="Button1_Click" />
+             <asp:Button ID="btnBind0" runat="server"  Text="Build my timetable" OnClick="btnBind0_Click" />
+          
     <br /><br />
-    <asp:Label ID="lblmsg" runat="server" />
     </asp:Panel>
 </asp:Content>
